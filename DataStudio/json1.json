@@ -1,0 +1,187 @@
+[
+    {
+        "name": "data_atendimento",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "data_nascimento",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "sexo",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "unidade_tipo_codigo",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "unidade_tipo",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "unidade_codigo",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "unidade_descricao",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "procedimento_codigo",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "procedimento_descricao",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "cbo_codigo",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "cbo_descricao",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "cid_codigo",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "cid_descricao",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "solicitacao_exames",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "medicamentos_qtde_prescrita",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "medicamentos_qtde_dispensada",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "medicamentos_qtde_nao_padronizada",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "especialista_encaminhamento",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "especialista_area_atuacao",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "internacao",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "internacao_data",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "internacao_estabelecimento_solicitante",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "internacao_estabelecimento_destino",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "internacao_cid",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "domicilio_tratamento_agua",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "domicilio_abastecimento_agua",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "domicilio_energia_eletrica",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "domicilio_tipo_habitacao",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "domicilio_destino_lixo",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "domicilio_fezes_urina",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "domicilio_comodos",
+        "type": "INTEGER",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "questionario_caso_doenca",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "questionario_grupo_comunitario",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "questionario_meio_comunicacao",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "questionario_meio_transporte",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "municipio",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "municipio_bairro",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    }
+]

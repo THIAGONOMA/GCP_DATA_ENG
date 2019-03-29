@@ -1,0 +1,50 @@
+{
+	"nome": "Python",
+	"valor": 500.1,
+	"instrutor": {
+		"nome", "Daniel Mendes",
+		"datanascimento": "1980-12-31"
+	}
+}
+
+{
+	"nome": "R",
+	"valor": 400.2,
+	"instrutor": {
+		"nome", "Suemar Ã‰verton",
+		"datanascimento": "1981-11-30"
+	}
+}
+
+
+------------
+
+[
+    {
+        "name": "nome",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "valor",
+        "type": "FLOAT",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "instrutor",
+        "type": "RECORD",
+        "mode": "REQUIRED",
+        "fields": [
+            {
+                "name": "nome",
+                "type": "STRING",
+                "mode": "REQUIRED"
+            },
+            {
+                "name": "datanascimento",
+                "type": "DATE",
+		"mode": "REQUIRED"
+            }
+        ]
+    }
+]

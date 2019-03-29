@@ -1,0 +1,733 @@
+DATA SCIENCE ACADEMY
+Curso de Big Data, Data Science e Machine Learning com Google Cloud Platform
+
+Importante: Antes de executar os scripts abaixo, alterar nome do projeto, nome do dataset e nomes das tabelas para os respectivos objetos de sua propriedade.
+
+
+############################################################
+
+
+VÃDEO: REALIZANDO CONSULTAS NA TABELA CANDIDATOS
+
+Consulta 1:
+
+SELECT c.sq_candidato, c.nm_urna_candidato, c.sg_partido, bem.ds_bem_candidato, bem.vr_bem_candidato
+FROM `dsa-gcp.curso.eleicoes2018` c, unnest(bens) bem
+
+Consulta 2:
+
+SELECT c.sq_candidato, c.nm_urna_candidato, c.sg_partido, ds_tipo_bem_candidato, bem.ds_bem_candidato, bem.vr_bem_candidato
+FROM `dsa-gcp.curso.eleicoes2018` c, unnest(bens) bem
+
+
+############################################################
+
+
+VÃDEO: CARGA DE DADOS EM TABELAS COM CONSULTAS ANINHADAS
+
+Consulta 1:
+
+SELECT nome, instrutor.nome instrutor_nome FROM `dsa-gcp.curso.cursos` LIMIT 1000
+
+
+############################################################
+
+
+VÃDEO: REALIZANDO CONSULTAS NA TABELA CANDIDATOS - AGREGAÃ‡Ã•ES E LEFT JOIN
+
+Consulta 1:
+
+SELECT
+  c.sq_candidato,
+  c.nm_urna_candidato,
+  c.sg_partido,
+  COUNT(*) total_bens,
+  AVG(vr_bem_candidato) valor_medio_bens,
+  MAX(vr_bem_candidato) valor_maximo_bens,
+  MIN(vr_bem_candidato) valor_minimo_bens,
+  SUM(vr_bem_candidato) valor_total_bens
+FROM
+  `dsa-gcp.curso.eleicoes2018` c,
+  UNNEST(bens) bem
+GROUP BY
+  c.sq_candidato,
+  c.nm_urna_candidato,
+  c.sg_partido
+
+Consulta 2:
+
+SELECT
+  c.sq_candidato,
+  c.nm_urna_candidato,
+  c.sg_partido,
+  COUNT(*) total_bens,
+  AVG(vr_bem_candidato) valor_medio_bens,
+  MAX(vr_bem_candidato) valor_maximo_bens,
+  MIN(vr_bem_candidato) valor_minimo_bens,
+  SUM(vr_bem_candidato) valor_total_bens
+FROM
+  `dsa-gcp.curso.eleicoes2018` c,
+  UNNEST(bens) bem
+GROUP BY
+  c.sq_candidato,
+  c.nm_urna_candidato,
+  c.sg_partido
+ORDER BY valor_minimo_bens
+
+Consulta 3:
+
+WITH candidatos as 
+(
+  SELECT
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido,
+    COUNT(*) total_bens,
+    AVG(vr_bem_candidato) valor_medio_bens,
+    MAX(vr_bem_candidato) valor_maximo_bens,
+    MIN(vr_bem_candidato) valor_minimo_bens,
+    SUM(vr_bem_candidato) valor_total_bens
+  FROM
+    `dsa-gcp.curso.eleicoes2018` c,
+    UNNEST(bens) bem
+  GROUP BY
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido
+  ORDER BY valor_minimo_bens
+)
+
+select count(*) from candidatos
+
+Consulta 4:
+
+WITH candidatos as 
+(
+  SELECT
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido,
+    COUNT(*) total_bens,
+    AVG(vr_bem_candidato) valor_medio_bens,
+    MAX(vr_bem_candidato) valor_maximo_bens,
+    MIN(vr_bem_candidato) valor_minimo_bens,
+    SUM(vr_bem_candidato) valor_total_bens
+  FROM
+    `dsa-gcp.curso.eleicoes2018` c left join
+    UNNEST(bens) bem
+  GROUP BY
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido
+  ORDER BY valor_minimo_bens
+)
+
+select count(*) from candidatos
+
+Consulta 5:
+
+WITH candidatos as 
+(
+  SELECT
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido,
+    COUNT(*) total_bens,
+    AVG(vr_bem_candidato) valor_medio_bens,
+    MAX(vr_bem_candidato) valor_maximo_bens,
+    MIN(vr_bem_candidato) valor_minimo_bens,
+    SUM(vr_bem_candidato) valor_total_bens
+  FROM
+    `dsa-gcp.curso.eleicoes2018` c left join
+    UNNEST(bens) bem
+  GROUP BY
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido
+  ORDER BY valor_minimo_bens
+)
+
+select * from candidatos
+
+Consulta 6:
+
+WITH candidatos as 
+(
+  SELECT
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido,
+    COUNT(vr_bem_candidato) total_bens,
+    AVG(vr_bem_candidato) valor_medio_bens,
+    MAX(vr_bem_candidato) valor_maximo_bens,
+    MIN(vr_bem_candidato) valor_minimo_bens,
+    SUM(vr_bem_candidato) valor_total_bens
+  FROM
+    `dsa-gcp.curso.eleicoes2018` c left join
+    UNNEST(bens) bem
+  GROUP BY
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido
+  ORDER BY valor_minimo_bens
+)
+
+select count(*) from candidatos
+
+
+############################################################
+
+
+VÃDEO: FUNÃ‡Ã•ES ANALÃTICAS - RANK
+
+Consulta 1:
+
+WITH
+  candidatos AS (
+  SELECT
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido,
+    COUNT(vr_bem_candidato) total_bens,
+    AVG(vr_bem_candidato) valor_medio_bens,
+    MAX(vr_bem_candidato) valor_maximo_bens,
+    MIN(vr_bem_candidato) valor_minimo_bens,
+    SUM(vr_bem_candidato) valor_total_bens
+  FROM
+    `dsa-gcp.curso.eleicoes2018` c
+  LEFT JOIN
+    UNNEST(bens) bem
+  GROUP BY
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido
+  ORDER BY
+    valor_minimo_bens )
+    
+SELECT
+  sq_candidato,
+  nm_urna_candidato,
+  sg_partido
+FROM
+  candidatos
+
+Consulta 2:
+
+WITH
+  candidatos AS (
+  SELECT
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido,
+    COUNT(vr_bem_candidato) total_bens,
+    AVG(vr_bem_candidato) valor_medio_bens,
+    MAX(vr_bem_candidato) valor_maximo_bens,
+    MIN(vr_bem_candidato) valor_minimo_bens,
+    SUM(vr_bem_candidato) valor_total_bens
+  FROM
+    `dsa-gcp.curso.eleicoes2018` c
+  LEFT JOIN
+    UNNEST(bens) bem
+  GROUP BY
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido
+  ORDER BY
+    valor_minimo_bens )
+    
+SELECT
+  sq_candidato,
+  nm_urna_candidato,
+  sg_partido,
+  rank() over(order by valor_total_bens desc) ranking_geral
+FROM
+  candidatos
+ORDER BY
+  ranking_geral
+
+Consulta 3:
+
+WITH
+  candidatos AS (
+  SELECT
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido,
+    c.ds_cargo,
+    COUNT(vr_bem_candidato) total_bens,
+    AVG(vr_bem_candidato) valor_medio_bens,
+    MAX(vr_bem_candidato) valor_maximo_bens,
+    MIN(vr_bem_candidato) valor_minimo_bens,
+    SUM(vr_bem_candidato) valor_total_bens
+  FROM
+    `dsa-gcp.curso.eleicoes2018` c
+  LEFT JOIN
+    UNNEST(bens) bem
+  GROUP BY
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido,
+    c.ds_cargo
+  ORDER BY
+    valor_minimo_bens )
+    
+SELECT
+  sq_candidato,
+  nm_urna_candidato,
+  sg_partido,
+  ds_cargo,
+  rank() over(order by valor_total_bens desc) ranking_geral,
+  rank() over(partition by sg_partido order by valor_total_bens desc) ranking_por_partido,
+  rank() over(partition by ds_cargo order by valor_total_bens desc) ranking_por_cargo,
+  rank() over(partition by ds_cargo, sg_partido order by valor_total_bens desc) ranking_por_cargo_e_partido,
+  valor_total_bens
+FROM
+  candidatos
+ORDER BY
+  ranking_geral
+
+Consulta 4:
+
+WITH
+  candidatos AS (
+  SELECT
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido,
+    c.ds_cargo,
+    COUNT(vr_bem_candidato) total_bens,
+    AVG(vr_bem_candidato) valor_medio_bens,
+    MAX(vr_bem_candidato) valor_maximo_bens,
+    MIN(vr_bem_candidato) valor_minimo_bens,
+    SUM(vr_bem_candidato) valor_total_bens
+  FROM
+    `dsa-gcp.curso.eleicoes2018` c
+  LEFT JOIN
+    UNNEST(bens) bem
+  GROUP BY
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido,
+    c.ds_cargo
+  ORDER BY
+    valor_minimo_bens )
+    
+SELECT
+  sq_candidato,
+  nm_urna_candidato,
+  sg_partido,
+  ds_cargo,
+  rank() over(order by valor_total_bens desc) ranking_geral,
+  rank() over(partition by sg_partido order by valor_total_bens desc) ranking_por_partido,
+  rank() over(partition by ds_cargo order by valor_total_bens desc) ranking_por_cargo,
+  rank() over(partition by ds_cargo, sg_partido order by valor_total_bens desc) ranking_por_cargo_e_partido,
+  cast(round(valor_total_bens) as numeric)
+FROM
+  candidatos
+ORDER BY
+  ranking_geral
+
+
+############################################################
+
+
+VÃDEO: FUNÃ‡Ã•ES ANALÃTICAS DE NUMERAÃ‡ÃƒO
+
+
+Consulta 1:
+
+WITH Alunos AS (
+  SELECT 'aluno 1' nome, 59 peso
+  UNION ALL
+  SELECT 'aluno 2' nome, 70 peso
+  UNION ALL
+  SELECT 'aluno 3' nome, 61 peso
+  UNION ALL
+  SELECT 'aluno 4' nome, 70 peso
+  UNION ALL
+  SELECT 'aluno 5' nome, 90 peso
+  UNION ALL
+  SELECT 'aluno 6' nome, 70 peso 
+)
+
+SELECT 
+  nome,
+  peso,
+  rank() over (order by peso) rank
+  FROM alunos
+
+Consulta 2:
+
+WITH Alunos AS (
+  SELECT 'aluno 1' nome, 59 peso
+  UNION ALL
+  SELECT 'aluno 2' nome, 70 peso
+  UNION ALL
+  SELECT 'aluno 3' nome, 61 peso
+  UNION ALL
+  SELECT 'aluno 4' nome, 70 peso
+  UNION ALL
+  SELECT 'aluno 5' nome, 90 peso
+  UNION ALL
+  SELECT 'aluno 6' nome, 70 peso 
+)
+
+SELECT 
+  nome,
+  peso,
+  rank() over (order by peso) rank,
+  dense_rank() over (order by peso) dense_rank,
+  percent_rank() over (order by peso) percent_rank,
+  cume_dist() over (order by peso) cume_dist,
+  row_number() over (order by peso) row_number
+  FROM alunos
+
+
+############################################################
+
+
+VÃDEO: FUNÃ‡Ã•ES ANALÃTICAS DE AGREGAÃ‡ÃƒO
+
+Consulta 1:
+
+WITH
+  candidatos AS (
+  SELECT
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido,
+    c.ds_cargo,
+    COUNT(vr_bem_candidato) total_bens,
+    AVG(vr_bem_candidato) valor_medio_bens,
+    MAX(vr_bem_candidato) valor_maximo_bens,
+    MIN(vr_bem_candidato) valor_minimo_bens,
+    SUM(vr_bem_candidato) valor_total_bens
+  FROM
+    `dsa-gcp.curso.eleicoes2018` c
+  LEFT JOIN
+    UNNEST(bens) bem
+  GROUP BY
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido,
+    c.ds_cargo
+  ORDER BY
+    valor_minimo_bens )
+    
+SELECT
+  sq_candidato,
+  nm_urna_candidato,
+  sg_partido,
+  ds_cargo,
+  rank() over(order by valor_total_bens desc) ranking_geral,
+  rank() over(partition by sg_partido order by valor_total_bens desc) ranking_por_partido,
+  rank() over(partition by ds_cargo order by valor_total_bens desc) ranking_por_cargo,
+  rank() over(partition by ds_cargo, sg_partido order by valor_total_bens desc) ranking_por_cargo_e_partido,
+  cast(round(valor_total_bens) as numeric) valor_total_bens,
+  sum(valor_total_bens) over(partition by sg_partido) valor_total_do_partido,
+  sum(valor_total_bens) over(partition by ds_cargo) valor_total_do_cargo 
+FROM
+  candidatos
+ORDER BY
+  ranking_geral
+
+Consulta 2:
+
+WITH
+  candidatos AS (
+  SELECT
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido,
+    c.ds_cargo,
+    COUNT(vr_bem_candidato) total_bens,
+    AVG(vr_bem_candidato) valor_medio_bens,
+    MAX(vr_bem_candidato) valor_maximo_bens,
+    MIN(vr_bem_candidato) valor_minimo_bens,
+    SUM(vr_bem_candidato) valor_total_bens
+  FROM
+    `dsa-gcp.curso.eleicoes2018` c
+  LEFT JOIN
+    UNNEST(bens) bem
+  GROUP BY
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido,
+    c.ds_cargo
+  ORDER BY
+    valor_minimo_bens )
+    
+SELECT
+  sq_candidato,
+  nm_urna_candidato,
+  sg_partido,
+  ds_cargo,
+  rank() over(order by valor_total_bens desc) ranking_geral,
+  rank() over(partition by sg_partido order by valor_total_bens desc) ranking_por_partido,
+  rank() over(partition by ds_cargo order by valor_total_bens desc) ranking_por_cargo,
+  rank() over(partition by ds_cargo, sg_partido order by valor_total_bens desc) ranking_por_cargo_e_partido,
+  cast(round(valor_total_bens) as numeric) valor_total_bens,
+  sum(valor_total_bens) over(partition by sg_partido) valor_total_do_partido,
+  sum(valor_total_bens) over(partition by ds_cargo) valor_total_do_cargo,
+  cast(round((valor_total_bens / sum(valor_total_bens) over(partition by ds_cargo)) * 100) as numeric) proporcao_candidato_cargo  
+FROM
+  candidatos
+ORDER BY
+  ranking_geral
+
+Consulta 3:
+
+WITH
+  candidatos AS (
+  SELECT
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido,
+    c.ds_cargo,
+    COUNT(vr_bem_candidato) total_bens,
+    AVG(vr_bem_candidato) valor_medio_bens,
+    MAX(vr_bem_candidato) valor_maximo_bens,
+    MIN(vr_bem_candidato) valor_minimo_bens,
+    SUM(vr_bem_candidato) valor_total_bens
+  FROM
+    `dsa-gcp.curso.eleicoes2018` c
+  LEFT JOIN
+    UNNEST(bens) bem
+  GROUP BY
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido,
+    c.ds_cargo
+  ORDER BY
+    valor_minimo_bens )
+    
+SELECT
+  sq_candidato,
+  nm_urna_candidato,
+  sg_partido,
+  ds_cargo,
+  rank() over(order by valor_total_bens desc) ranking_geral,
+  rank() over(partition by sg_partido order by valor_total_bens desc) ranking_por_partido,
+  rank() over(partition by ds_cargo order by valor_total_bens desc) ranking_por_cargo,
+  rank() over(partition by ds_cargo, sg_partido order by valor_total_bens desc) ranking_por_cargo_e_partido,
+  cast(round(valor_total_bens) as numeric) valor_total_bens,
+  sum(valor_total_bens) over(partition by sg_partido) valor_total_do_partido,
+  sum(valor_total_bens) over(partition by ds_cargo) valor_total_do_cargo,
+  cast((valor_total_bens / sum(valor_total_bens) over(partition by ds_cargo) * 100) as numeric) proporcao_candidato_cargo
+  
+FROM
+  candidatos
+WHERE
+  ds_cargo = 'SENADOR'
+ORDER BY
+  proporcao_candidato_cargo desc
+
+
+Consulta 4:
+
+WITH
+  candidatos AS (
+  SELECT
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido,
+    c.ds_cargo,
+    COUNT(vr_bem_candidato) total_bens,
+    AVG(vr_bem_candidato) valor_medio_bens,
+    MAX(vr_bem_candidato) valor_maximo_bens,
+    MIN(vr_bem_candidato) valor_minimo_bens,
+    SUM(vr_bem_candidato) valor_total_bens
+  FROM
+    `dsa-gcp.curso.eleicoes2018` c
+  LEFT JOIN
+    UNNEST(bens) bem
+  GROUP BY
+    c.sq_candidato,
+    c.nm_urna_candidato,
+    c.sg_partido,
+    c.ds_cargo
+  ORDER BY
+    valor_minimo_bens )
+    
+SELECT sum(proporcao_candidato_cargo)
+FROM
+(  
+  SELECT
+    sq_candidato,
+    nm_urna_candidato,
+    sg_partido,
+    ds_cargo,
+    rank() over(order by valor_total_bens desc) ranking_geral,
+    rank() over(partition by sg_partido order by valor_total_bens desc) ranking_por_partido,
+    rank() over(partition by ds_cargo order by valor_total_bens desc) ranking_por_cargo,
+    rank() over(partition by ds_cargo, sg_partido order by valor_total_bens desc) ranking_por_cargo_e_partido,
+    cast(round(valor_total_bens) as numeric) valor_total_bens,
+    sum(valor_total_bens) over(partition by sg_partido) valor_total_do_partido,
+    sum(valor_total_bens) over(partition by ds_cargo) valor_total_do_cargo,
+    cast((valor_total_bens / sum(valor_total_bens) over(partition by ds_cargo) * 100) as numeric) proporcao_candidato_cargo
+
+  FROM
+    candidatos
+  WHERE
+    ds_cargo = 'SENADOR'
+  ORDER BY
+    proporcao_candidato_cargo desc
+)
+
+
+############################################################
+
+
+VÃDEO: WINDOW FRAMES - PRECEDING E FOLLOWING
+
+
+Consulta 1:
+
+SELECT
+  ano,
+  mes,
+  nome,
+  faturamento,
+  SUM(faturamento) OVER (PARTITION BY nome) total_faturado_empresa,
+  SUM(faturamento) OVER (PARTITION BY nome, ano) total_faturado_empresa_ano,
+  SUM(faturamento) OVER (PARTITION BY nome, ano, mes) total_faturado_empresa_ano_mes
+FROM
+  `dsa-gcp.curso.empresas`
+LIMIT
+  1000
+
+
+Consulta 2:
+
+SELECT
+  ano,
+  mes,
+  nome,
+  faturamento,
+  SUM(faturamento) OVER (PARTITION BY nome) total_faturado_empresa,
+  SUM(faturamento) OVER (PARTITION BY nome, ano) total_faturado_empresa_ano,
+  SUM(faturamento) OVER (PARTITION BY nome, ano, mes) total_faturado_empresa_ano_mes,
+  SUM(faturamento) OVER (PARTITION BY nome, ano rows between unbounded preceding and unbounded following) total_faturado_empresa_ano_todas_linhas
+FROM
+  `dsa-gcp.curso.empresas`
+LIMIT
+  1000
+
+
+############################################################
+
+
+VÃDEO: WINDOW FRAMES - CURRENT ROW
+
+Consulta 1:
+
+SELECT
+  ano,
+  mes,
+  nome,
+  faturamento,
+  SUM(faturamento) OVER (PARTITION BY nome) total_faturado_empresa,
+  SUM(faturamento) OVER (PARTITION BY nome, ano) total_faturado_empresa_ano,
+  SUM(faturamento) OVER (PARTITION BY nome, ano, mes) total_faturado_empresa_ano_mes,
+  SUM(faturamento) OVER (PARTITION BY nome, ano rows between unbounded preceding and unbounded following) total_faturado_empresa_ano_todas_linhas,
+  SUM(faturamento) OVER (PARTITION BY nome, ano order by mes rows between unbounded preceding and current row) total_faturado_empresa_ano_acumulado
+FROM
+  `dsa-gcp.curso.empresas`
+LIMIT
+  1000
+
+
+############################################################
+
+
+VÃDEO: WINDOW FRAMES - DEFINIÃ‡ÃƒO DOS LIMITES DE LINHAS DE ENTRADA
+
+Consulta 1:
+
+SELECT
+  ano,
+  mes,
+  nome,
+  faturamento,
+  AVG(faturamento) OVER (PARTITION BY nome, ano ORDER BY mes ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING) total_faturado_empresa_ano_periodo_3_meses,
+  SUM(faturamento) OVER (PARTITION BY nome) total_faturado_empresa,
+  SUM(faturamento) OVER (PARTITION BY nome, ano) total_faturado_empresa_ano,
+  SUM(faturamento) OVER (PARTITION BY nome, ano, mes) total_faturado_empresa_ano_mes,
+  SUM(faturamento) OVER (PARTITION BY nome, ano ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) total_faturado_empresa_ano_todas_linhas,
+  SUM(faturamento) OVER (PARTITION BY nome, ano ORDER BY mes ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT row) total_faturado_empresa_ano_acumulado
+FROM
+  `dsa-gcp.curso.empresas`
+LIMIT
+  1000
+
+Consulta 2:
+
+SELECT
+  ano,
+  mes,
+  nome,
+  faturamento,
+  AVG(faturamento) OVER (PARTITION BY nome, ano ORDER BY mes ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING) total_faturado_empresa_ano_periodo_3_meses,
+  AVG(faturamento) OVER (PARTITION BY nome, ano ORDER BY mes ROWS BETWEEN 3 PRECEDING AND 0 FOLLOWING) total_faturado_empresa_ano_periodo_3_meses_anteriores,
+  SUM(faturamento) OVER (PARTITION BY nome) total_faturado_empresa,
+  SUM(faturamento) OVER (PARTITION BY nome, ano) total_faturado_empresa_ano,
+  SUM(faturamento) OVER (PARTITION BY nome, ano, mes) total_faturado_empresa_ano_mes,
+  SUM(faturamento) OVER (PARTITION BY nome, ano ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) total_faturado_empresa_ano_todas_linhas,
+  SUM(faturamento) OVER (PARTITION BY nome, ano ORDER BY mes ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT row) total_faturado_empresa_ano_acumulado
+FROM
+  `dsa-gcp.curso.empresas`
+LIMIT
+  1000
+
+
+############################################################
+
+
+VÃDEO: WINDOW FRAMES - ROWS E RANGE
+
+Consulta 1:
+
+SELECT
+  ano,
+  mes,
+  nome,
+  faturamento,
+  AVG(faturamento) OVER (PARTITION BY nome, ano ORDER BY mes ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING) total_faturado_empresa_ano_periodo_3_meses_rows,
+  AVG(faturamento) OVER (PARTITION BY nome, ano ORDER BY mes RANGE BETWEEN 1 PRECEDING AND 1 FOLLOWING) total_faturado_empresa_ano_periodo_3_meses_range,
+  SUM(faturamento) OVER (PARTITION BY nome) total_faturado_empresa,
+  SUM(faturamento) OVER (PARTITION BY nome, ano) total_faturado_empresa_ano,
+  SUM(faturamento) OVER (PARTITION BY nome, ano, mes) total_faturado_empresa_ano_mes,
+  SUM(faturamento) OVER (PARTITION BY nome, ano ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) total_faturado_empresa_ano_todas_linhas,
+  SUM(faturamento) OVER (PARTITION BY nome, ano ORDER BY mes ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT row) total_faturado_empresa_ano_acumulado
+FROM
+  `dsa-gcp.curso.empresas`
+LIMIT
+  1000
+
+Consulta 2:
+
+INSERT INTO
+  `dsa-gcp.curso.empresas`(ano,
+    mes,
+    ano_faturamento)
+VALUES
+  (2016,4,'ABC',45)
+
+Consulta 3:
+
+SELECT
+  ano,
+  mes,
+  nome,
+  faturamento,
+  AVG(faturamento) OVER (PARTITION BY nome, ano ORDER BY mes ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING) total_faturado_empresa_ano_periodo_3_meses_rows,
+  AVG(faturamento) OVER (PARTITION BY nome, ano ORDER BY mes RANGE BETWEEN 1 PRECEDING AND 1 FOLLOWING) total_faturado_empresa_ano_periodo_3_meses_range,
+  SUM(faturamento) OVER (PARTITION BY nome) total_faturado_empresa,
+  SUM(faturamento) OVER (PARTITION BY nome, ano) total_faturado_empresa_ano,
+  SUM(faturamento) OVER (PARTITION BY nome, ano, mes) total_faturado_empresa_ano_mes,
+  SUM(faturamento) OVER (PARTITION BY nome, ano ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) total_faturado_empresa_ano_todas_linhas,
+  SUM(faturamento) OVER (PARTITION BY nome, ano ORDER BY mes ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT row) total_faturado_empresa_ano_acumulado
+FROM
+  `dsa-gcp.curso.empresas`
+ORDER BY
+   nome,ano,mes

@@ -1,0 +1,324 @@
+[
+    {
+        "name": "DT_GERACAO",
+        "type": "DATE",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "HH_GERACAO",
+        "type": "TIME",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "ANO_ELEICAO",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "CD_TIPO_ELEICAO",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "NM_TIPO_ELEICAO",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "NR_TURNO",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "CD_ELEICAO",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "DS_ELEICAO",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "DT_ELEICAO",
+        "type": "DATE",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "TP_ABRANGENCIA",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "SG_UF",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "SG_UE",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "NM_UE",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "CD_CARGO",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "DS_CARGO",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "SQ_CANDIDATO",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "NR_CANDIDATO",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "NM_CANDIDATO",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "NM_URNA_CANDIDATO",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "NM_SOCIAL_CANDIDATO",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "NR_CPF_CANDIDATO",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "NM_EMAIL",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "CD_SITUACAO_CANDIDATURA",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "DS_SITUACAO_CANDIDATURA",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "CD_DETALHE_SITUACAO_CAND",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "DS_DETALHE_SITUACAO_CAND",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "TP_AGREMIACAO",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "NR_PARTIDO",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "SG_PARTIDO",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "NM_PARTIDO",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "SQ_COLIGACAO",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "NM_COLIGACAO",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "DS_COMPOSICAO_COLIGACAO",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "CD_NACIONALIDADE",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "DS_NACIONALIDADE",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "SG_UF_NASCIMENTO",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "CD_MUNICIPIO_NASCIMENTO",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "NM_MUNICIPIO_NASCIMENTO",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "DT_NASCIMENTO",
+        "type": "DATE",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "NR_IDADE_DATA_POSSE",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "NR_TITULO_ELEITORAL_CANDIDATO",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "CD_GENERO",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "DS_GENERO",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "CD_GRAU_INSTRUCAO",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "DS_GRAU_INSTRUCAO",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "CD_ESTADO_CIVIL",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "DS_ESTADO_CIVIL",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "CD_COR_RACA",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "DS_COR_RACA",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "CD_OCUPACAO",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "DS_OCUPACAO",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "NR_DESPESA_MAX_CAMPANHA",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "CD_SIT_TOT_TURNO",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "DS_SIT_TOT_TURNO",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "ST_REELEICAO",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "ST_DECLARAR_BENS",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "NR_PROTOCOLO_CANDIDATURA",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "NR_PROCESSO",
+        "type": "NUMERIC",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "BENS",
+        "type": "RECORD",
+        "mode": "REPEATED",
+        "fields": [
+            {
+                "name": "SQ_CANDIDATO",
+                "type": "INTEGER",
+                "mode": "REQUIRED"
+            },
+            {
+                "name": "CD_TIPO_BEM_CANDIDATO",
+                "type": "INTEGER",
+                "mode": "REQUIRED"
+            },
+            {
+                "name": "DS_BEM_CANDIDATO",
+                "type": "STRING",
+                "mode": "REQUIRED"
+            },
+            {
+                "name": "DS_TIPO_BEM_CANDIDATO",
+                "type": "STRING",
+                "mode": "REQUIRED"
+            },
+            {
+                "name": "VR_BEM_CANDIDATO",
+                "type": "FLOAT",
+                "mode": "REQUIRED"
+            }
+        ]
+    }
+]

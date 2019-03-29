@@ -1,0 +1,73 @@
+# Selecione inicial:
+
+SELECIONAR
+  weight_pounds,
+  is_male,
+  gestation_weeks,
+  mother_age,
+  CAST (mother_race AS string) COMO mother_race
+DE
+  `bigquery-public-data.samples.natality`
+ONDE
+  weight_pounds NÃO É NULO
+  AND RAND () <0,001
+
+----------------------------------------------
+
+# Para criação do modelo:
+
+CREATE MODEL `curso.peso_bebe`
+OPÇÕES
+  (model_type = 'linear_reg',
+    input_label_cols = ['weight_pounds']) COMO
+SELECIONAR
+  weight_pounds,
+  is_male,
+  gestation_weeks,
+  mother_age,
+  CAST (mother_race AS string) COMO mother_race
+DE
+  `bigquery-public-data.samples.natality`
+ONDE
+  weight_pounds NÃO É NULO
+  AND RAND () <0,001
+
+
+----------------------------------------------
+
+# Para avaliação do modelo:
+
+SELECIONAR
+  *
+DE
+  ML.EVALUATE (MODELO `curso.peso_bebe`,
+    (
+    SELECIONAR
+      weight_pounds,
+      is_male,
+      gestation_weeks,
+      mother_age,
+      CAST (mother_race AS STRING) COMO mother_race
+    DE
+      `bigquery-public-data.samples.natality`
+    ONDE
+      weight_pounds NÃO É NULO))
+
+----------------------------------------------
+
+## Para obter prediÃ§Ãµes:
+
+SELECIONAR
+  *
+DE
+  ML.PREDICT (MODELO `curso.peso_bebe`,
+    (
+    SELECIONAR
+      is_male,
+      gestation_weeks,
+      mother_age,
+      CAST (mother_race AS STRING) COMO mother_race
+    DE
+      `bigquery-public-data.samples.natality`
+    ONDE
+      estado = "WY"))

@@ -1,0 +1,4 @@
+{'nome':'Python','valor':500.1,'instrutor':[{'nome':'Daniel Mendes','datanascimento':'1980-12-31'},{'nome':'Fernanda MagalhÃ£es','datanascimento':'1982-10-30'}]}
+{'nome':'R','valor':400.2,'instrutor':[{'nome':'Suemar Ã‰verton','datanascimento':'1981-11-30'}]}
+{'nome':'Java','valor':600.3,'instrutor':[{'nome':'Suemar Ã‰verton','datanascimento':'1981-11-30'},{'nome':'Daniel Mendes','datanascimento':'1980-12-31'}]}
+{'nome':'BigQuery','valor':700.99,'instrutor':[{'nome':'David Matos','datanascimento':'1979-09-07'}]}

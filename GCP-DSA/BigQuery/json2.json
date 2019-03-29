@@ -1,0 +1,42 @@
+with candidatos as
+(
+SELECT
+  c.sq_candidato,
+  c.nm_urna_candidato,
+  c.sg_partido,
+  c.ds_cargo,
+  COUNT(vr_bem_candidato) total_bens,
+  AVG(vr_bem_candidato) valor_medio_bens,
+  MAX(vr_bem_candidato) valor_maximo_bens,
+  MIN(vr_bem_candidato) valor_minimo_bens,
+  SUM(vr_bem_candidato) valor_total_bens
+FROM
+  `dsa-gcp.curso.eleicoes2018` c left join UNNEST(bens) bem
+GROUP BY
+  c.sq_candidato,
+  c.nm_urna_candidato,
+  c.sg_partido,
+  c.ds_cargo
+order by valor_minimo_bens
+)
+
+select sum(proporcao_candidato_cargo)
+from (
+
+select 
+  sq_candidato,
+  nm_urna_candidato,
+  sg_partido,
+  ds_cargo,
+  rank() over(order by valor_total_bens desc) ranking_geral,
+  rank() over(partition by sg_partido order by valor_total_bens desc) ranking_por_partido,
+  rank() over(partition by ds_cargo order by valor_total_bens desc) ranking_por_cargo,
+  rank() over(partition by ds_cargo, sg_partido order by valor_total_bens desc) ranking_por_cargo_e_partido,
+  cast(round(valor_total_bens) as numeric) valor_total_bens,
+  sum(valor_total_bens) over(partition by sg_partido) valor_total_do_partido,
+  sum(valor_total_bens) over(partition by ds_cargo) valor_total_do_cargo,
+  cast((valor_total_bens / sum(valor_total_bens) over(partition by ds_cargo) * 100) as numeric) proporcao_candidato_cargo
+from candidatos
+ where ds_cargo = 'SENADOR'
+  order by proporcao_candidato_cargo desc
+ )
